@@ -42,7 +42,7 @@ void saveData(Product p[], int count){
 	fp= fopen("product.txt","wt");
 	for(int i=0; i<count; i++){
 		if(p[i].price == -1) continue;
-		fprintf(fp, "%-15s %3dg %4d원\n",p->name,p->weight,p->price); 
+		fprintf(fp, "%s %d %d\n",p[i].name,p[i].weight,p[i].price); 
 	}
 	fclose(fp);
 	printf("저장됨!\n");
@@ -53,21 +53,22 @@ void saveData(Product p[], int count){
 int loadData(Product *p){
 	int count=0;
 	char c;
-	FILE*fp;
+	FILE* fp;
 
 	//파일 내용을 읽어와서 배열에 값 추가하기
-	fp = fopen("product.txt", "rt");
+	fp = fopen("product.txt", "r");
 	while((c=fgetc(fp))!=EOF)
     		if(c=='\n') count++;
+  	fclose(fp);
 
-        for(; i<count+1; i++){
-                if(feof(fp)) break;
-                fscanf(fp, "%s", p[i].name);
-                fscanf(fp, "%d", &p[i].weight);
-                fscanf(fp, "%d", &p[i].price);
-        }
+	fp = fopen("product.txt", "r");
+	for(int i; i<count; i++){
+        	if(feof(fp)) break;
+		fscanf(fp, "%s", p[i].name);
+        	fscanf(fp, "%d", &p[i].weight);
+       	 	fscanf(fp, "%d", &p[i].price);
+       	}
         fclose(fp);
-	count = i+1;
 	printf("=> 로딩 성공!\n");
 	return count;
 }
