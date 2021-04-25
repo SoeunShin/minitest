@@ -63,7 +63,7 @@ int loadData(Product *p){
                 fscanf(fp, "%d", &p[i].price);
         }
         fclose(fp);
-	count = i;
+	count = i+1;
 	printf("=> 로딩 성공!\n");
 	return count;
 }
