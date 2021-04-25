@@ -51,11 +51,15 @@ void saveData(Product p[], int count){
 
 //파일에서 데이터 불러오는 함수
 int loadData(Product *p){
-	int count=0, i=0;
+	int count=0;
+	char c;
 	FILE*fp;
-	
+
 	//파일 내용을 읽어와서 배열에 값 추가하기
 	fp = fopen("product.txt", "rt");
+	while((c=fgetc(fp))!=EOF)
+    		if(c=='\n') count++;
+
         for(; i<count+1; i++){
                 if(feof(fp)) break;
                 fscanf(fp, "%s", p[i].name);
